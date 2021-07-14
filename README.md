@@ -1,11 +1,16 @@
 # coolHttpd
-Simple file server when you need multiple fake domains from your dev machine
+Simple local http file server when you need multiple fake domains from your dev machine
 
 # what?
 this is a simple http file server for local machine dev. It uses the fact that a
 browser	will send a host name with its request headers (even if the domain doesn't
 exist/resolve on the net), and a little trickery with local hostname/ip mapping
-to let you run multpiple fake domains on your local dev machine
+to let you run multpiple fake domains on your local dev machine. It also has a
+few cool features:
+* can handle multiple domains
+* colored log output to easily see whats going on
+* live reload when you make changes to your config
+* nice shutdown that doesnt leave sockets open
 
 # why?
 Consider you write SPA's that need localStorage to store data. How many times have 
@@ -56,12 +61,12 @@ your config would look like this:
 ```
 
 if config.json is not present, the server will use the following defaults:
-*		host: 127.0.0.1
-*		port: 8000
-*		basepath: c:\www
-*		domains: { dev.com: dev } (c:\www\dev will be the root for dev.com)
-*		a few basic mimetypes
-*		four0four: 'oops' (404 error page text)
+*	host: 127.0.0.1
+*	port: 8000
+*	basepath: c:\www
+*	domains: { dev.com: dev } (c:\www\dev will be the root for dev.com)
+*	a few basic mimetypes
+*	four0four: 'oops' (404 error page text)
 
 GET / will remap to index.html
 four0four is literally just a text string that would be the html for a 404 error page. Obviously edit for your needs.
@@ -77,4 +82,4 @@ Laziness is the Mother of all Invention (TM) ;)
 # other things?
 For now...this is what I needed for my situation. 
 Might be cool to do other things, like handling REST api's, POST data handling, etc. Those are for a future coding session. Im not trying to rewrite Apache here ;)
-And its a good coding exercise for nodeJS. I learned quite a bit wrangling with http, fs watch and promises.
+And its a good coding exercise for nodeJS. I learned quite a bit wrangling with http, fs watch and promises. And just for funsies, ansi styling on the command line log output
