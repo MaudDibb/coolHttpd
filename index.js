@@ -170,4 +170,11 @@ fs2.watch('config.json', (event, filename) => {
 	});
 });
 
+// we need the server to shutdown completely on exit
+process.on('SIGINT', ()=>{
+	console.log('shutting it down.');
+	server.destroy(()=>{});
+	process.exit(0);
+})
+
 startServer();
