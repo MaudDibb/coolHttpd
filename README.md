@@ -59,6 +59,6 @@ node index.js
 The server supports live changes to config.json and will restart automatically when changes are detected.
 Laziness is the Mother of all Invention (TM) ;)
 
-#other things?
+# other things?
 For now...this is what I needed for my situation. 
 Might be cool to do other things, like handling REST api's, POST data handling, etc. Those are for a future coding session. Im not trying to rewrite Apache here ;)
