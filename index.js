@@ -45,8 +45,18 @@ const switchcase = (cases,defaultCase,fn=null) => key =>
 		fn ? fn(cases[key]) : cases[key] :
 		fn ? fn(defaultCase) : defaultCase;
 
+const csi = (c1,c2,t) => `\u001b[${c1}m${t}\u001b[${c2}m`;
+const ansi = {
+	redI:	t => csi(91,39,t),
+	red:    t => csi(31,39,t),
+	greenI: t => csi(92,39,t),
+	cyanI:  t => csi(96,39,t),
+};
+
+const reqLog = (host,url,method) => `${ansi.redI('[')}${ansi.red(host)}${ansi.redI(']')} ${ansi.greenI(url)} ${ansi.cyanI(method)}`;
+
 const listener = function(req, res) {
-	console.log(req.headers.host, req.url, req.method);
+	console.log(reqLog(req.headers.host,req.url,req.method));
 	if (config.domains.hasOwnProperty(req.headers.host)) {
 		let url = req.url;
 		if (url == '/') url = 'index.html'; // Quality Of Life feature (TM)
@@ -145,7 +155,7 @@ function startServer() {
 // now add a watch on config.json so we can shutdown and restart the server with new config
 let fsWait = false;
 fs2.watch('config.json', (event, filename) => {
-	// debounce, watch fill fire multiple change events when saving changes to a file
+	// debounce, watch will fire multiple change events when saving changes to a file
 	if (fsWait) return;
 	fsWait = setTimeout(() => {
 		fsWait = false;
