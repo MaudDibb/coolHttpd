@@ -37,7 +37,7 @@ create a config.json and add mimetypes, domains, base path, port, etc
     ".png": "image/png",
     ".js": "text/javascript",
     ".css": "text/css"
-  }
+  },
   "four0four": "404 page text"
 }
 ```
