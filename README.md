@@ -26,6 +26,8 @@ Ya. you need this ;)
 # beam me up scotty!
 Obviously...nodeJS
 
+just grab index.js...no dependencies here.
+
 set up host names mapped to 127.0.0.1 in your etc/hosts file. [How to edit your hosts file](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/)
 
 create a config.json and add mimetypes, domains, base path, port, etc
@@ -69,6 +71,7 @@ if config.json is not present, the server will use the following defaults:
 *	four0four: 'oops' (404 error page text)
 
 GET / will remap to index.html
+
 four0four is literally just a text string that would be the html for a 404 error page. Obviously edit for your needs.
 
 to run, just do:
