@@ -1,7 +1,7 @@
 # coolHttpd
 Simple local http file server when you need multiple fake domains from your dev machine
 
-# what?
+# What?
 this is a simple http file server for local machine dev. It uses the fact that a
 browser	will send a host name with its request headers (even if the domain doesn't
 exist/resolve on the net), and a little trickery with local hostname/ip mapping
@@ -12,21 +12,24 @@ few cool features:
 * live reload when you make changes to your config
 * nice shutdown that doesnt leave sockets open
 
-# why?
-Consider you write SPA's that need localStorage to store data. How many times have 
-you had to clear localStorage for localhost when you have	multiple projects storing
-different data sets into localstorage? Only 5	megabytes or so to play with there. 
-Or how about that REALLY annoying CORS security thing where you cant getImageData
+# Why?
+Consider the following: you write SPA's that need localStorage to store data. How 
+many times have you had to clear localStorage on localhost when you have multiple projects storing
+different data sets into localstorage? Only 5	megabytes or so to play with there, that can run out quick. 
+
+Or how about that REALLY annoying CORS security thing where you can't getImageData
 from an image loaded via file:// even when the html itself was also loaded from file://
-protocol? Maybe (like me) you have quite a few local projects and you'd like to 
+protocol? 
+
+Maybe (if you're like me) you have quite a few local projects and you'd like to 
 see them all work as if they were running from a real domain name.
 
 Ya. you need this ;)
 
-# beam me up scotty!
-Obviously...nodeJS
+# Beam me up scotty!
+Obviously: node JS
 
-just grab index.js...no dependencies here.
+All you need is index.js...no dependencies here.
 
 set up host names mapped to 127.0.0.1 in your etc/hosts file. [How to edit your hosts file](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/)
 
@@ -49,8 +52,8 @@ create a config.json and add mimetypes, domains, base path, port, etc
 }
 ```
 
-Im hoping you keep your web projects under a common folder. The parent folder that holds all your projects will act as the basepath in the config, with the domains working on
-folders off this basepath. For example, say c:\www is where you keep all your web projects. Say you have 3 projects: dev, game, todo. Lets say you want dev.com to point to c:\www\dev, game.com -> c:\www\game, and todo.com -> c:\www\todo
+Im hoping you keep your web projects under a common folder. This folder that holds all your projects will act as the basepath in the config, with the domains working on
+folders off this basepath. For example, say c:\www is where you keep all your web projects. Say you have 3 projects in folders like: dev, game, todo. Lets say you want dev.com to point to c:\www\dev, game.com -> c:\www\game, and todo.com -> c:\www\todo
 
 your config would look like this:
 ```json
@@ -82,7 +85,10 @@ node index.js
 The server supports live changes to config.json and will restart automatically when changes are detected.
 Laziness is the Mother of all Invention (TM) ;)
 
-# other things?
+# Other things?
 For now...this is what I needed for my situation. 
 Might be cool to do other things, like handling REST api's, POST data handling, etc. Those are for a future coding session. Im not trying to rewrite Apache here ;)
 And its a good coding exercise for nodeJS. I learned quite a bit wrangling with http, fs watch and promises. And just for funsies, ansi styling on the command line log output
+
+things todo:
+* routing. would be nice to do post, ajax, etc. not sure how to approach that yet. Ill get back to you on that ;) 
