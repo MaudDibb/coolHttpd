@@ -62,7 +62,6 @@ const listener = function(req, res) {
 		let url = req.url;
 		if (url == '/') url = 'index.html'; // Quality Of Life feature (TM)
 		let p = path.join(config.domainPath(host),url);
-		console.log(`${ansi.cyanI('full path: ')}${p}`);
 		fs.stat(p)
 			.then(stats => {
 				let size = stats.size;
