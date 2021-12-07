@@ -17,19 +17,18 @@ Consider the following: you write SPA's that need localStorage to store data. Ho
 many times have you had to clear localStorage on localhost when you have multiple projects storing
 different data sets into localstorage? Only 5	megabytes or so to play with there, that can run out quick. 
 
-Or how about that REALLY annoying CORS security thing where you can't getImageData
-from an image loaded via file:// even when the html itself was also loaded from file://
-protocol? 
+How about that really annoying CORS security thing where you can't do an getImageData call
+on a canvas with an image loaded via file:// even when the html itself was also loaded from file://
+protocol? FROM THE SAME DAMM PATH EVEN. Google: chill on the restrictions, brah.
 
-Maybe (if you're like me) you have quite a few local projects and you'd like to 
-see them all work as if they were running from a real domain name.
+Maybe (if you're like me) you have a raspberry pi and do local dev. You gotta load chromium with 
+--allow-local-access-files to even load a file:// url. Stinky buttnuggets there too.
 
 Ya. you need this ;)
 
 # Beam me up scotty!
-Obviously: node JS
-
-All you need is index.js...no dependencies here.
+Captain Obvious: get nodejs. download it, sudo apt, etc. you dont need instructions for that if you're here.
+All you need is index.js. No dependencies, this is a pure node implementation.
 
 set up host names mapped to 127.0.0.1 in your etc/hosts file. [How to edit your hosts file](https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/)
 
@@ -98,3 +97,5 @@ things todo:
 # Update 12-6-2021
 my wintel box blew up on me. Running my raspi 4 and needed this for local dev, only to find port 80 is not allowed on raspbian (not easily anyway ;)
 so running on a different port number, boom. Bug when the host name includes a port number. Ya. Fix for that is up. sorry ;)
+
+been trying to figure out a clean way to handle routes/methods, I'd like that feature too. bear with me.
