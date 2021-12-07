@@ -1,20 +1,20 @@
 /*
 	simple  http  file server for  local machine dev.  It uses the fact that a
 	browser	will send a host name with its request headers (even if the domain
-	doesn't  exist / resolve on the net ),  and a little  trickery with  local 
-	hostname / ip  mapping to let you run multpiple fake domains on your local 
+	doesn't  exist / resolve on the net ),  and a little  trickery with  local
+	hostname / ip  mapping to let you run multpiple fake domains on your local
 	dev machine
 
 	Why? consider you write SPA's that need localStorage to store data. How
 	many times have you had to clear localStorage for localhost when you have
 	multiple projects storing different data sets into localstorage? Only 5
 	megabytes or so to play with there. Or how about that REALLY annoying CORS
-	security thing where you cant getImageData from a project loaded via file:// 
+	security thing where you cant getImageData from a project loaded via file://
 	protocol? Ya. you need this ;)
-	
+
 	set up host names mapped to 127.0.0.1 in your etc/hosts file
 
-	edit config.json and change mimetypes, domains, base path, port, etc	
+	edit config.json and change mimetypes, domains, base path, port, etc
 
 	if config.json is not present, the server will use the following defaults:
 		host: 127.0.0.1
@@ -27,7 +27,7 @@
 	GET / will remap to index.html
 
 	you can do changes to the config while the server is running. It will detect
-	file changes to config.json and restart the server for you. Laziness is the 
+	file changes to config.json and restart the server for you. Laziness is the
 	Mother of all Invention (TM) ;)
 */
 
@@ -40,12 +40,12 @@ let config = {};
 let server = null;
 
 const pathFromDomain = (p) => path.join(config.basepath,p);
-const switchcase = (cases,defaultCase,fn=null) => key => 
+const switchcase = (cases,defaultCase,fn=null) => key =>
 	cases.hasOwnProperty(key) ?
 		fn ? fn(cases[key]) : cases[key] :
 		fn ? fn(defaultCase) : defaultCase;
 
-const csi = (c1,c2,t) => `\u001b[${c1}m${t}\u001b[${c2}m`;
+const csi = (c1,c2,t) => `\x1b[${c1}m${t}\x1b[${c2}m`;
 const ansi = {
 	redI:	t => csi(91,39,t),
 	red:    t => csi(31,39,t),
@@ -57,10 +57,12 @@ const reqLog = (host,url,method) => `${ansi.redI('[')}${ansi.red(host)}${ansi.re
 
 const listener = function(req, res) {
 	console.log(reqLog(req.headers.host,req.url,req.method));
-	if (config.domains.hasOwnProperty(req.headers.host)) {
+	let [host,port] = req.headers.host.indexOf(':') !== -1 ? req.headers.host.split(':') : [req.headers.host,'80'];
+	if (config.domains.hasOwnProperty(host)) {
 		let url = req.url;
 		if (url == '/') url = 'index.html'; // Quality Of Life feature (TM)
-		let p = path.join(config.domainPath(req.headers.host),url);
+		let p = path.join(config.domainPath(host),url);
+		console.log(`${ansi.cyanI('full path: ')}${p}`);
 		fs.stat(p)
 			.then(stats => {
 				let size = stats.size;
@@ -136,7 +138,7 @@ function startServer() {
 				'.png': 'image/png',
 				'.svg': 'image/svg+xml',
 				'.xml': 'text/xml',
-				'.zip': 'application/zip',			
+				'.zip': 'application/zip',
 			},
 			four0four: `oops`,
 			basepath: 'c:\\www',
