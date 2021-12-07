@@ -75,6 +75,8 @@ if config.json is not present, the server will use the following defaults:
 
 GET / will remap to index.html
 
+
+
 four0four is literally just a text string that would be the html for a 404 error page. Obviously edit for your needs.
 
 to run, just do:
@@ -92,3 +94,7 @@ And its a good coding exercise for nodeJS. I learned quite a bit wrangling with 
 
 things todo:
 * routing. would be nice to do post, ajax, etc. not sure how to approach that yet. Ill get back to you on that ;) 
+
+# Update 12-6-2021
+my wintel box blew up on me. Running my raspi 4 and needed this for local dev, only to find port 80 is not allowed on raspbian (not easily anyway ;)
+so running on a different port number, boom. Bug when the host name includes a port number. Ya. Fix for that is up. sorry ;)
